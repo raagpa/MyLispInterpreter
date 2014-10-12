@@ -3,6 +3,8 @@ package ParseTreeStructure;
 public class CompoundNode extends BinaryTree {
 	
 	private BinaryTree leftSubTree;
+	private BinaryTree rightSubTree;
+	
 	public BinaryTree getLeftSubTree() {
 		return leftSubTree;
 	}
@@ -23,14 +25,24 @@ public class CompoundNode extends BinaryTree {
 	}
 
 
-	private BinaryTree rightSubTree;
-	
 
-	public CompoundNode(BinaryTree left, BinaryTree right, boolean isList, boolean isDotPresent){
+	public CompoundNode(BinaryTree left, BinaryTree right){
 		this.leftSubTree = left;
 		this.rightSubTree = right;
-		this.isList = isList;
-		this.isDotNotation = isDotPresent;
+	
 	}
+	
+	public boolean isList(){
+		BinaryTree tree = this;
+		while(tree instanceof CompoundNode){
+			tree = ((CompoundNode)tree).getRightSubTree();
+		}
+		if (tree instanceof NilNode){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	
 }

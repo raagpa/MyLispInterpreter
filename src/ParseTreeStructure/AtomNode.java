@@ -8,8 +8,7 @@ public class AtomNode extends BinaryTree{
 	
 	public AtomNode(Token token){
 		this.token = token;
-		this.isList = false;
-		this.isDotNotation = false;
+		
 	}
 	
 	public Token getToken(){
@@ -18,6 +17,10 @@ public class AtomNode extends BinaryTree{
 	
 	public String toString(){
 		return token.getLexValue();
+	}
+	
+	public boolean isList(){
+		return false;
 	}
 
 }

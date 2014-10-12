@@ -25,7 +25,7 @@ public class MyInt {
 		    		
 		    		while(scanner.hasToken()  && !TokenCategory.EOF.equals((scanner.peek()).getCategory())){
 		    			System.out.println("\n");
-		    			write(parser.parseS());
+		    			printResult(parser.parseS());
 		    		}
 				} catch (ParserException e) {
 					// TODO Auto-generated catch block
@@ -44,7 +44,7 @@ public class MyInt {
 	 
 	
 	 
-	 private static void write(BinaryTree parseTree){
+	 /*private static void write(BinaryTree parseTree){
 		 if(parseTree instanceof AtomNode){
 			 System.out.print(((AtomNode)parseTree).getToken() + " ");
 		 }else if(parseTree instanceof NilNode){
@@ -59,25 +59,53 @@ public class MyInt {
 			 }
 		 }
 
-	 }
+	 }*/
 	 
-	 private static void writeNode(BinaryTree parseTree){
+	/* private static void writeNode(BinaryTree parseTree){
 		 write(((CompoundNode) parseTree).getLeftSubTree());
 		 write(((CompoundNode) parseTree).getRightSubTree());
-	 }
+	 }*/
 	 
 	 private static void writeList(BinaryTree parseTree){
 		 System.out.print("( ");
-		 write(((CompoundNode) parseTree).getLeftSubTree());
-		 write(((CompoundNode) parseTree).getRightSubTree());
+		 BinaryTree tempTree = parseTree;
+		 while(tempTree instanceof CompoundNode){
+			BinaryTree leftSubTree = ((CompoundNode)tempTree).getLeftSubTree();
+			if(leftSubTree instanceof AtomNode){
+				 System.out.print(((AtomNode)leftSubTree).getToken() + " ");
+			}else{
+				printResult(leftSubTree);
+			}
+			
+			tempTree = ((CompoundNode)tempTree).getRightSubTree();
+		 }
+		 System.out.print(") ");
+		 
 
 	 }
 	 
 	 private static void writeSExpression(BinaryTree parseTree){
+		
 		 System.out.print("( ");
-		 write(((CompoundNode) parseTree).getLeftSubTree());
+		 printResult(((CompoundNode) parseTree).getLeftSubTree());
 		 System.out.print(" . ");
-		 write(((CompoundNode) parseTree).getRightSubTree());
+		 printResult(((CompoundNode) parseTree).getRightSubTree());
 		 System.out.print(") ");
 	 }
+	 
+	 
+	 private static void printResult(BinaryTree parseTree){
+		 	 if(parseTree instanceof AtomNode){
+		 		System.out.print(((AtomNode)parseTree).getToken() + " ");
+		 	 }else if( parseTree instanceof NilNode){
+		 		 //ignore
+		 	 }else {
+				 if(parseTree.isList()){
+					 writeList(parseTree);
+				 }else {
+					 writeSExpression(parseTree);
+				 }
+		 	 }
+		 }
+	
 }

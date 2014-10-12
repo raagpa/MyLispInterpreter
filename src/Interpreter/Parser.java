@@ -12,7 +12,7 @@ import Tokens.TokenCategory;
 public class Parser {
 	
 	private BinaryTree parseTree;
-	private boolean isDotPresent = false;
+	
 	
 	public Parser(Scanner scanner){
 		this.scanner = scanner;
@@ -62,12 +62,9 @@ public class Parser {
 		}else{
 			BinaryTree leftSubTree = parseE(token);
 			BinaryTree rightSubTree = parseY(null);
-			boolean isList = (leftSubTree instanceof AtomNode) && !isDotPresent;
-			BinaryTree tree= new CompoundNode(leftSubTree,rightSubTree, isList , isDotPresent);
-			if(isDotPresent){
-				isDotPresent = false;
-			}
-			return tree;
+			
+			return new CompoundNode(leftSubTree,rightSubTree);
+			
 		}
 		
 	}
@@ -82,7 +79,6 @@ public class Parser {
 		if(TokenCategory.DOT.equals(token.getCategory()) ){
 			parseDot(token);
 			BinaryTree tree = parseE(null);
-			isDotPresent = true;
 			parseCloseParenthesis(null);
 			return tree;
 			
@@ -107,7 +103,7 @@ public class Parser {
 			BinaryTree leftSubTree = parseE(token);
 			BinaryTree rightSubTree = parseR(null);
 			//boolean isList =  rightSubTree instanceof NilNode;
-			return new CompoundNode(leftSubTree, rightSubTree, false,false);
+			return new CompoundNode(leftSubTree, rightSubTree);
 		}else{
 			scanner.putBackToken(token);
 			return new NilNode();
@@ -129,7 +125,7 @@ public class Parser {
 		
 	}
 
-	private AtomNode parseAtom(Token token) throws ParserException {
+	private BinaryTree parseAtom(Token token) throws ParserException {
 		//System.out.print("parseAtom");
 		if(null == token){
 			token = scanner.getNextToken();
@@ -139,7 +135,11 @@ public class Parser {
 			}
 		}
 		System.out.print(token.getLexValue());
-		return new AtomNode(token);
+		if("NIL".equalsIgnoreCase(token.getLexValue())){
+			return new NilNode();
+		}else{
+			return new AtomNode(token);
+		}
 		
 	}
 	
