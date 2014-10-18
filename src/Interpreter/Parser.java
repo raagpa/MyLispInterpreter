@@ -121,7 +121,7 @@ public class Parser {
 				throw new ParserException("Parsing failed - Expecting an Open Parenthesis, found "+ token.getLexValue());
 			}
 		}
-		System.out.print(token.getLexValue());
+		//System.out.print(token.getLexValue());
 		
 	}
 
@@ -134,7 +134,7 @@ public class Parser {
 				throw new ParserException("Parsing failed - Expecting an Atom, found "+ token.getLexValue());
 			}
 		}
-		System.out.print(token.getLexValue());
+		//System.out.print(token.getLexValue());
 		if("NIL".equalsIgnoreCase(token.getLexValue())){
 			return new NilNode();
 		}else{
@@ -152,7 +152,7 @@ public class Parser {
 				throw new ParserException("Parsing failed - Expecting a Close Parenthesis, found "+ token.getLexValue());
 			}
 		}
-		System.out.print(token.getLexValue());
+		//System.out.print(token.getLexValue());
 		
 	}
 	
@@ -166,7 +166,7 @@ public class Parser {
 				throw new ParserException("Parsing failed - Expecting a Dot, found "+ token.getLexValue());
 			}
 		}
-		System.out.print(token.getLexValue());
+		//System.out.print(token.getLexValue());
 		
 	}
 	
