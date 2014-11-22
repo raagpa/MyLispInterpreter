@@ -37,12 +37,46 @@ public class CompoundNode extends BinaryTree {
 		while(tree instanceof CompoundNode){
 			tree = ((CompoundNode)tree).getRightSubTree();
 		}
-		if (tree instanceof NilNode){
+		if (tree == null || /*tree instanceof NilNode || */
+				((tree instanceof AtomNode) &&  "NIL".equals(((AtomNode) tree).getToken().getLexValue()))){
 			return true;
 		}else{
 			return false;
 		}
 	}
+	
+	public BinaryTree getCAR() {
+		// TODO Auto-generated method stub
+		return this.leftSubTree;
+	}
+	
+	public BinaryTree getCDR() {
+		// TODO Auto-generated method stub
+//		if(this.rightSubTree instanceof CompoundNode){
+//			return ((CompoundNode) this.rightSubTree).leftSubTree;
+//		}
+		
+		return this.rightSubTree;
+	}
+
+
+	public int length() {
+		// TODO Auto-generated method stub
+		BinaryTree tree = this;
+		int length = 0;
+		while(tree instanceof CompoundNode){
+			length ++;
+			tree = ((CompoundNode)tree).getRightSubTree();
+		}
+		
+		return length;
+	}
+	
+	public boolean isNILNode(){
+		
+		return false;
+	}
+	
 	
 	
 }

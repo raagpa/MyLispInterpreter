@@ -57,7 +57,8 @@ public class Parser {
 		}
 		if(TokenCategory.CLOSE_PARENTHESIS.equals(token.getCategory()) ){
 			parseCloseParenthesis(token);
-			return null;
+			//return null;
+			return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
 			
 		}else{
 			BinaryTree leftSubTree = parseE(token);
@@ -106,7 +107,9 @@ public class Parser {
 			return new CompoundNode(leftSubTree, rightSubTree);
 		}else{
 			scanner.putBackToken(token);
-			return new NilNode();
+			//return new NilNode();
+			//return null;
+			return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
 		}
 		
 
@@ -135,11 +138,11 @@ public class Parser {
 			}
 		}
 		//System.out.print(token.getLexValue());
-		if("NIL".equalsIgnoreCase(token.getLexValue())){
-			return new NilNode();
-		}else{
+//		if("NIL".equalsIgnoreCase(token.getLexValue())){
+//			return new NilNode();
+//		}else{
 			return new AtomNode(token);
-		}
+//		}
 		
 	}
 	

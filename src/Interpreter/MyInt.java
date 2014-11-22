@@ -1,13 +1,15 @@
 package Interpreter;
 
 
+import java.util.HashMap;
+
+import Exception.EvaluationException;
 import Exception.ParserException;
 import Exception.ScannerException;
 import Interpreter.Scanner;
 import ParseTreeStructure.AtomNode;
 import ParseTreeStructure.BinaryTree;
 import ParseTreeStructure.CompoundNode;
-import ParseTreeStructure.NilNode;
 import Tokens.TokenCategory;
 
 
@@ -21,11 +23,18 @@ public class MyInt {
 				//scanner.scan(userDir+"/bin/test1");
 	    		scanner.scan(null);
 				Parser parser = new Parser(scanner);
+				
 		    	try {
 		    		
 		    		while(scanner.hasToken()  && !TokenCategory.EOF.equals((scanner.peek()).getCategory())){	
-		    			writeResult(parser.parseS());
-		    			System.out.println("\n");
+		    			try{
+			    			Evaluator evaluator  = new Evaluator(parser.parseS(),new HashMap());	
+			    			writeResult(evaluator.evaluate());
+			    			//writeResult(parser.parseS());
+			    			System.out.println("\n");
+		    			}catch(EvaluationException e){
+		    				System.out.println(e.getMessage());
+		    			}
 		    		}
 				} catch (ParserException e) {
 					// TODO Auto-generated catch block
@@ -44,7 +53,7 @@ public class MyInt {
 	 
 	
 	 private static void writeList(BinaryTree parseTree){
-		 System.out.print("(");
+		 System.out.print("( ");
 		 BinaryTree tempTree = parseTree;
 		 while(tempTree instanceof CompoundNode){
 			BinaryTree leftSubTree = ((CompoundNode)tempTree).getLeftSubTree();
@@ -56,27 +65,28 @@ public class MyInt {
 			
 			tempTree = ((CompoundNode)tempTree).getRightSubTree();
 		 }
-		 System.out.print(")");
+		 System.out.print(") ");
 		 
 
 	 }
 	 
 	 private static void writeSExpression(BinaryTree parseTree){
 		
-		 System.out.print("(");
+		 System.out.print("( ");
 		 writeResult(((CompoundNode) parseTree).getLeftSubTree());
 		 System.out.print(" . ");
 		 writeResult(((CompoundNode) parseTree).getRightSubTree());
-		 System.out.print(")");
+		 System.out.print(") ");
 	 }
 	 
 	 
 	 private static void writeResult(BinaryTree parseTree){
 		 	 if(parseTree instanceof AtomNode){
 		 		System.out.print(((AtomNode)parseTree).getToken() + " ");
-		 	 }else if( parseTree instanceof NilNode){
+		 	 }/*else if( parseTree instanceof NilNode){
 		 		 //ignore
-		 	 }else if(null == parseTree){
+		 		System.out.print("NIL ");
+		 	 }*/else if(null == parseTree){
 		 	 	System.out.print("NIL ");
 		 	 	
 	 		 }else {

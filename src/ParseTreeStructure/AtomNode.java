@@ -20,7 +20,20 @@ public class AtomNode extends BinaryTree{
 	}
 	
 	public boolean isList(){
+		if("NIL".equals(getToken().getLexValue())){
+			return true;
+		}
 		return false;
 	}
 
+	public int length(){
+		return 1;
+	}
+	
+	public boolean isNILNode(){
+		if(((this instanceof AtomNode) &&  "NIL".equals(((AtomNode) this).getToken().getLexValue()))){
+			return true;
+		}
+		return false;
+	}
 }
