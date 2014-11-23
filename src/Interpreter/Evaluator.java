@@ -302,35 +302,9 @@ public class Evaluator {
 			throws EvaluationException {
 		String firstParam = ((AtomNode)((CompoundNode) params).getCAR()).getToken().getLexValue();
 		 String secondParam = ((AtomNode) ((CompoundNode) ((CompoundNode) params).getCDR()).getCAR()).getToken().getLexValue();
-		 int param1,param2;
-		 try{
-			 param1 = Integer.parseInt(firstParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(firstParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(firstParam);
-					 param1 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + firstParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + firstParam);
-			 }
-		 }
-		 try{
-			 param2 = Integer.parseInt(secondParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(secondParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(secondParam);
-					 param2 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + secondParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + secondParam);
-			 }
-		 }
+		 int param1 = getParam(firstParam);
+		 int param2 =  getParam(secondParam);
+		 
 		 if( param1 >  param2){
 			 return new AtomNode(new Token("T", TokenCategory.LITERAL_ATOM));
 		 }else{
@@ -340,38 +314,31 @@ public class Evaluator {
 	}
 
 
+	private int getParam(String param) throws EvaluationException {
+		int param1;
+		 try{
+			  param1 = Integer.parseInt(param);
+		 }catch(NumberFormatException ne){
+			 if(aListMap.containsKey(param)){
+				 try{
+					 AtomNode atom = (AtomNode) aListMap.get(param);
+					 param1 = Integer.parseInt(atom.getToken().getLexValue());
+				 }catch(NumberFormatException ne1){
+					 throw new EvaluationException("Unbound Atom - " + param);
+				 }
+			 }else{
+				 throw new EvaluationException("Unbound Atom - " + param);
+			 }
+		 }
+		return param1;
+	}
+
+
 	private BinaryTree evalLESS(BinaryTree params) throws EvaluationException {
 		String firstParam = ((AtomNode)((CompoundNode) params).getCAR()).getToken().getLexValue();
 		 String secondParam = ((AtomNode) ((CompoundNode) ((CompoundNode) params).getCDR()).getCAR()).getToken().getLexValue();
-		 int param1,param2;
-		 try{
-			 param1 = Integer.parseInt(firstParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(firstParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(firstParam);
-					 param1 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + firstParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + firstParam);
-			 }
-		 }
-		 try{
-			 param2 = Integer.parseInt(secondParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(secondParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(secondParam);
-					 param2 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + secondParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + secondParam);
-			 }
-		 }
+		 int param1 = getParam(firstParam);
+		 int param2 = getParam(secondParam);
 		 if( param1 < param2){
 			 return new AtomNode(new Token("T", TokenCategory.LITERAL_ATOM));
 		 }else{
@@ -411,36 +378,8 @@ public class Evaluator {
 			throws EvaluationException {
 		String firstParam = ((AtomNode)((CompoundNode) params).getCAR()).getToken().getLexValue();
 		 String secondParam = ((AtomNode) ((CompoundNode) ((CompoundNode) params).getCDR()).getCAR()).getToken().getLexValue();
-		 int param1,param2;
-		 try{
-			 param1 = Integer.parseInt(firstParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(firstParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(firstParam);
-					 param1 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + firstParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + firstParam);
-			 }
-		 }
-		 try{
-			 param2 = Integer.parseInt(secondParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(secondParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(secondParam);
-					 param2 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + secondParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + secondParam);
-			 }
-
-		 }
+		 int param1 = getParam(firstParam);
+		 int param2 = getParam(secondParam);
 		 
 		 return new AtomNode(new Token(param1 % param2 +"", TokenCategory.NUMERIC_ATOM));
 	}
@@ -450,36 +389,8 @@ public class Evaluator {
 			throws EvaluationException {
 		String firstParam = ((AtomNode)((CompoundNode) params).getCAR()).getToken().getLexValue();
 		 String secondParam = ((AtomNode) ((CompoundNode) ((CompoundNode) params).getCDR()).getCAR()).getToken().getLexValue();
-		 int param1,param2;
-		 try{
-			 param1 = Integer.parseInt(firstParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(firstParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(firstParam);
-					 param1 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + firstParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + firstParam);
-			 }
-		 }
-		 try{
-			 param2 = Integer.parseInt(secondParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(secondParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(secondParam);
-					 param2 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + secondParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + secondParam);
-			 }
-
-		 }
+		 int param1 = getParam(firstParam);
+		 int param2 = getParam(secondParam);
 		 
 		 return new AtomNode(new Token(param1 / param2 +"", TokenCategory.NUMERIC_ATOM));
 	}
@@ -488,36 +399,8 @@ public class Evaluator {
 	private BinaryTree evalTIMES(BinaryTree params) throws EvaluationException {
 		String firstParam = ((AtomNode)((CompoundNode) params).getCAR()).getToken().getLexValue();
 		 String secondParam = ((AtomNode) ((CompoundNode) ((CompoundNode) params).getCDR()).getCAR()).getToken().getLexValue();
-		 int param1,param2;
-		 try{
-			 param1 = Integer.parseInt(firstParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(firstParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(firstParam);
-					 param1 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + firstParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + firstParam);
-			 }
-		 }
-		 try{
-			 param2 = Integer.parseInt(secondParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(secondParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(secondParam);
-					 param2 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + secondParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + secondParam);
-			 }
-
-		 }
+		 int param1 = getParam(firstParam);
+		 int param2 = getParam(secondParam);
 		 
 		 return new AtomNode(new Token(param1 * param2 +"", TokenCategory.NUMERIC_ATOM));
 	}
@@ -526,36 +409,8 @@ public class Evaluator {
 	private BinaryTree evalMINUS(BinaryTree params) throws EvaluationException {
 		String firstParam = ((AtomNode)((CompoundNode) params).getCAR()).getToken().getLexValue();
 		 String secondParam = ((AtomNode) ((CompoundNode) ((CompoundNode) params).getCDR()).getCAR()).getToken().getLexValue();
-		 int param1,param2;
-		 try{
-			 param1 = Integer.parseInt(firstParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(firstParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(firstParam);
-					 param1 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + firstParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + firstParam);
-			 }
-		 }
-		 try{
-			 param2 = Integer.parseInt(secondParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(secondParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(secondParam);
-					 param2 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + secondParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + secondParam);
-			 }
-
-		 }
+		 int param1 = getParam(firstParam);
+		 int param2 = getParam(secondParam);
 		 
 		 return new AtomNode(new Token(param1 - param2 +"", TokenCategory.NUMERIC_ATOM));
 	}
@@ -591,37 +446,8 @@ public class Evaluator {
 	private BinaryTree evalPLUS(BinaryTree params) throws EvaluationException {
 		String firstParam = ((AtomNode)((CompoundNode) params).getCAR()).getToken().getLexValue();
 		 String secondParam = ((AtomNode) ((CompoundNode) ((CompoundNode) params).getCDR()).getCAR()).getToken().getLexValue();
-		 int param1,param2;
-		 try{
-			 param1 = Integer.parseInt(firstParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(firstParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(firstParam);
-					 param1 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + firstParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + firstParam);
-			 }
-		 }
-		 try{
-			 param2 = Integer.parseInt(secondParam);
-		 }catch(NumberFormatException ne){
-			 if(aListMap.containsKey(secondParam)){
-				 try{
-					 AtomNode atom = (AtomNode) aListMap.get(secondParam);
-					 param2 = Integer.parseInt(atom.getToken().getLexValue());
-				 }catch(NumberFormatException ne1){
-					 throw new EvaluationException("Unbound Atom - " + secondParam);
-				 }
-			 }else{
-				 throw new EvaluationException("Unbound Atom - " + secondParam);
-			 }
-
-
-		 }
+		 int param1 = getParam(firstParam);
+		 int param2 = getParam(secondParam);
 		 
 		 return new AtomNode(new Token(param1 + param2 +"", TokenCategory.NUMERIC_ATOM));
 	}

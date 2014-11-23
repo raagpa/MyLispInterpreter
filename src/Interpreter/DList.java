@@ -4,6 +4,12 @@ import java.util.HashMap;
 
 import ParseTreeStructure.BinaryTree;
 
+/**
+ * Singleton class to represent the global data structure DList
+ * to store the user defined method definition
+ * @author chiragpa
+ *
+ */
 public class DList {
 
 	private static DList dList;

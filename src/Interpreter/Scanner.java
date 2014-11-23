@@ -14,11 +14,22 @@ import Tokens.Token;
 import Tokens.TokenCategory;
 
 
+/**
+ * @author chiragpa
+ *
+ */
 public class Scanner {
 
 	private List<Token> tokenList;
 
 
+	/**
+	 * Scans the input from Std in and tokenizes it.
+	 * 
+	 * @param String file
+	 * @return void
+	 * @throws ScannerException
+	 */
 	public void scan(String file) throws ScannerException{
 		StringBuilder input = new StringBuilder();
 		tokenList = new ArrayList<Token>();
@@ -81,7 +92,12 @@ public class Scanner {
 		}
 
 	}
+	
 
+	/**
+	 * @param StringBuilder atom
+	 * @return boolean
+	 */
 	private boolean isEOF(StringBuilder atom) {
 		if("EOF".equalsIgnoreCase(atom.toString())){
 			return true;
@@ -105,6 +121,10 @@ public class Scanner {
 		return input;
 	}*/
 
+	/**
+	 * @param String file
+	 * @return StringBuilder
+	 */
 	private StringBuilder readInput(String file)
 	{
 		BufferedReader reader = null;
@@ -136,6 +156,10 @@ public class Scanner {
 		return input;
 	}
 
+	/**
+	 * @param StringBuilder atom
+	 * @return boolean
+	 */
 	private boolean isValidLiteralAtom(StringBuilder atom) {
 		if(isAlphaNumeric(atom.toString())){
 			return true;
@@ -143,6 +167,10 @@ public class Scanner {
 		return false;
 	}
 
+	/**
+	 * @param String atom
+	 * @return boolean
+	 */
 	private boolean isAlphaNumeric(String atom) {
 		int i=0;
 		int length = atom.length();
@@ -158,6 +186,10 @@ public class Scanner {
 		return true;
 	}
 
+	/**
+	 * @param StringBuilder atom
+	 * @return boolean
+	 */
 	private boolean isNumericAtom(StringBuilder atom) {
 		try{
 			Integer.parseInt(atom.toString());
@@ -168,6 +200,10 @@ public class Scanner {
 
 	}
 
+	/**
+	 * @param char c
+	 * @return boolean
+	 */
 	private boolean isWhiteSpace(char c) {
 		if(c == ' ' || c == '\n' || c == '\t'){
 			return true;
@@ -175,6 +211,11 @@ public class Scanner {
 		return false;
 	}
 
+	/**
+	 * @param int i
+	 * @param StringBuilder input
+	 * @return boolean
+	 */
 	private boolean isValidDotToken(int i, StringBuilder input) {
 		if(i-1 >=0 && i+1 < input.length()){
 			char previousToken = input.charAt(i-1);
@@ -187,6 +228,10 @@ public class Scanner {
 		return false;
 	}
 
+	/**
+	 * @param char c
+	 * @return boolean
+	 */
 	private boolean isCloseParenthesis(char c) {
 		if(c == ')'){
 			return true;
@@ -194,6 +239,10 @@ public class Scanner {
 		return false;
 	}
 
+	/**
+	 * @param char c
+	 * @return boolean
+	 */
 	private boolean isDot(char c) {
 		if(c == '.'){
 			return true;
@@ -201,6 +250,10 @@ public class Scanner {
 		return false;
 	}
 
+	/**
+	 * @param char c
+	 * @return boolean
+	 */
 	private boolean isOpenParenthesis(char c) {
 		if(c == '('){
 			return true;
@@ -208,6 +261,9 @@ public class Scanner {
 		return false;
 	}
 
+	/**
+	 * @return boolean
+	 */
 	public boolean hasToken() {
 
 		if(tokenList.isEmpty()){
@@ -216,6 +272,9 @@ public class Scanner {
 		return true;
 	}
 
+	/**
+	 * @return Token
+	 */
 	public Token getNextToken() {
 		if(hasToken()){
 			Token token = tokenList.get(0);
@@ -226,11 +285,17 @@ public class Scanner {
 
 	}
 
+	/**
+	 * @param Token token
+	 */
 	public void putBackToken(Token token) {
 		tokenList.add(0, token);
 
 	}
 
+	/**
+	 * @return Token
+	 */
 	public Token peek(){
 		if(hasToken()){
 			Token token = tokenList.get(0);

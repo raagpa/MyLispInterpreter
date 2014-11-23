@@ -1,5 +1,10 @@
 package Interpreter;
 
+/**
+ * Interface for operator constants.
+ * @author chiragpa
+ *
+ */
 public interface Operator {
 	
 	public final String CAR = "CAR";
