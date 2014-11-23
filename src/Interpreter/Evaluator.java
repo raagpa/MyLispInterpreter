@@ -13,6 +13,8 @@ public class Evaluator {
 	
 	private BinaryTree expression;
 	private HashMap<String, BinaryTree> aListMap;
+	private static final String T = "T";
+	private static final String NIL = "NIL";
 	
 	public Evaluator(BinaryTree parseS , HashMap<String , BinaryTree> aListMap){
 		this.expression = parseS;
@@ -24,9 +26,9 @@ public class Evaluator {
 	public BinaryTree evaluate() throws EvaluationException {
 		try{
 			if ( expression instanceof AtomNode){
-				if("T".equals(((AtomNode) expression).getToken().getLexValue())){
+				if(T.equals(((AtomNode) expression).getToken().getLexValue())){
 					return expression;
-				}else if("NIL".equals(((AtomNode) expression).getToken().getLexValue())){
+				}else if(NIL.equals(((AtomNode) expression).getToken().getLexValue())){
 					//return new NilNode();
 					return expression;
 				}else if(TokenCategory.NUMERIC_ATOM.equals(((AtomNode) expression).getToken().getCategory())){
@@ -137,8 +139,8 @@ public class Evaluator {
 			if(paramMaps.containsKey(((AtomNode) leftSubTree).getToken().getLexValue())){
 				throw new EvaluationException("Duplicate Formals in Function definition");
 			}else{
-				if("T".equals(((AtomNode) leftSubTree).getToken().getLexValue())
-						|| "NIL".equals(((AtomNode) leftSubTree).getToken().getLexValue())){
+				if(T.equals(((AtomNode) leftSubTree).getToken().getLexValue())
+						|| NIL.equals(((AtomNode) leftSubTree).getToken().getLexValue())){
 					throw new EvaluationException("Function Formals cannot be T or NIL");
 				}
 				if(!TokenCategory.LITERAL_ATOM.equals(((AtomNode) leftSubTree).getToken().getCategory())){
@@ -189,7 +191,7 @@ public class Evaluator {
 		}else{
 			Evaluator evaluator = new Evaluator(((CompoundNode) ((CompoundNode) exp).getCAR()).getCAR(),aListMap);
 			AtomNode result = (AtomNode) evaluator.evaluate();
-			if("T".equals(result.getToken().getLexValue())){
+			if(T.equals(result.getToken().getLexValue())){
 				Evaluator evaluator1 = new Evaluator(((CompoundNode) ((CompoundNode) ((CompoundNode) exp).getCAR()).getCDR()).getCAR(),aListMap);
 				return evaluator1.evaluate();
 			}else{
@@ -204,7 +206,7 @@ public class Evaluator {
 	private BinaryTree evlist(BinaryTree exp, HashMap aListMap, HashMap dListMap) throws EvaluationException {
 		if (null == exp || exp.isNILNode()){
 			//return new NilNode();
-			return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
+			return new AtomNode(new Token(NIL,TokenCategory.LITERAL_ATOM));
 		}else{
 			Evaluator evaluator = new Evaluator(((CompoundNode) exp).getCAR(),aListMap);
 			return cons(evaluator.evaluate(),evlist(((CompoundNode) exp).getCDR(),aListMap,dListMap));
@@ -306,10 +308,10 @@ public class Evaluator {
 		 int param2 =  getParam(secondParam);
 		 
 		 if( param1 >  param2){
-			 return new AtomNode(new Token("T", TokenCategory.LITERAL_ATOM));
+			 return new AtomNode(new Token(T, TokenCategory.LITERAL_ATOM));
 		 }else{
 			 //return new  NilNode();
-			 return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
+			 return new AtomNode(new Token(NIL,TokenCategory.LITERAL_ATOM));
 		 }
 	}
 
@@ -340,10 +342,10 @@ public class Evaluator {
 		 int param1 = getParam(firstParam);
 		 int param2 = getParam(secondParam);
 		 if( param1 < param2){
-			 return new AtomNode(new Token("T", TokenCategory.LITERAL_ATOM));
+			 return new AtomNode(new Token(T, TokenCategory.LITERAL_ATOM));
 		 }else{
 			 //return new  NilNode();
-			 return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
+			 return new AtomNode(new Token(NIL,TokenCategory.LITERAL_ATOM));
 		 }
 	}
 
@@ -354,20 +356,20 @@ public class Evaluator {
 			 String secondParam = ((AtomNode) ((CompoundNode) ((CompoundNode) params).getCDR()).getCAR()).getToken().getLexValue();
 			
 
-			 if("T".equals(firstParam) && "T" .equals(secondParam)){
-				 return new AtomNode(new Token("T",TokenCategory.LITERAL_ATOM));
+			 if(T.equals(firstParam) && T .equals(secondParam)){
+				 return new AtomNode(new Token(T,TokenCategory.LITERAL_ATOM));
 
-			 }else if("T".equals(firstParam) && "NIL" .equals(secondParam)){
-				 return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
-			 }else if("NIL".equals(firstParam) && "T" .equals(secondParam)){
-				 return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
-			 }else if("NIL".equals(firstParam) && "NIL" .equals(secondParam)){
-				 return new AtomNode(new Token("T",TokenCategory.LITERAL_ATOM));
+			 }else if(T.equals(firstParam) && NIL .equals(secondParam)){
+				 return new AtomNode(new Token(NIL,TokenCategory.LITERAL_ATOM));
+			 }else if(NIL.equals(firstParam) && T .equals(secondParam)){
+				 return new AtomNode(new Token(NIL,TokenCategory.LITERAL_ATOM));
+			 }else if(NIL.equals(firstParam) && NIL .equals(secondParam)){
+				 return new AtomNode(new Token(T,TokenCategory.LITERAL_ATOM));
 
 			 }else if(firstParam.equals(secondParam)){
-				 return new AtomNode(new Token("T",TokenCategory.LITERAL_ATOM));
+				 return new AtomNode(new Token(T,TokenCategory.LITERAL_ATOM));
 			 }else{
-				 return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
+				 return new AtomNode(new Token(NIL,TokenCategory.LITERAL_ATOM));
 			 }
 		 
 		 
@@ -495,10 +497,10 @@ public class Evaluator {
 		
 				BinaryTree param = ((CompoundNode) params).getCAR();
 				if(param instanceof AtomNode || param.isNILNode()){
-					return new AtomNode(new Token("T",TokenCategory.LITERAL_ATOM));
+					return new AtomNode(new Token(T,TokenCategory.LITERAL_ATOM));
 				}else{
 					//return new NilNode();
-					return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
+					return new AtomNode(new Token(NIL,TokenCategory.LITERAL_ATOM));
 				}
 			
 		
@@ -509,7 +511,7 @@ public class Evaluator {
 		
 				BinaryTree param = ((CompoundNode) params).getCAR();
 				if(param instanceof AtomNode && TokenCategory.NUMERIC_ATOM.equals(((AtomNode) param).getToken().getCategory())){
-					return new AtomNode(new Token("T",TokenCategory.LITERAL_ATOM)); 
+					return new AtomNode(new Token(T,TokenCategory.LITERAL_ATOM)); 
 				}else if(param instanceof AtomNode && TokenCategory.LITERAL_ATOM.equals(((AtomNode) param).getToken().getCategory()) ){
 					if(aListMap.containsKey(((AtomNode) param).getToken().getLexValue())){
 						try{
@@ -518,17 +520,17 @@ public class Evaluator {
 							//Integer.parseInt((String)aListMap.get(((AtomNode) param).getToken().getLexValue()));
 						}catch(NumberFormatException ne){
 							//return new NilNode();
-							return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
+							return new AtomNode(new Token(NIL,TokenCategory.LITERAL_ATOM));
 						}
 						
-						return new AtomNode(new Token("T",TokenCategory.LITERAL_ATOM));
+						return new AtomNode(new Token(T,TokenCategory.LITERAL_ATOM));
 						
 					}else{
 						throw new EvaluationException("Unboud Literal Atom - " + ((AtomNode) param).getToken().getLexValue());
 					}
 					
 				}else{
-					return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
+					return new AtomNode(new Token(NIL,TokenCategory.LITERAL_ATOM));
 				}
 			}
 
@@ -537,10 +539,10 @@ public class Evaluator {
 		
 				BinaryTree param = ((CompoundNode) params).getCAR();
 				if(param == null || param.isNILNode() ){
-					return new AtomNode(new Token("T",TokenCategory.LITERAL_ATOM));
+					return new AtomNode(new Token(T,TokenCategory.LITERAL_ATOM));
 				}else{
 					//return new NilNode();
-					return new AtomNode(new Token("NIL",TokenCategory.LITERAL_ATOM));
+					return new AtomNode(new Token(NIL,TokenCategory.LITERAL_ATOM));
 				}
 			
 	}

@@ -24,6 +24,7 @@ public interface Operator {
 	public final String QUOTE = "QUOTE";
 	public final String DEFUN = "DEFUN";
 	public final String COND = "COND";
+
 	
 
 }
