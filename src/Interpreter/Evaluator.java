@@ -9,6 +9,11 @@ import ParseTreeStructure.CompoundNode;
 import Tokens.Token;
 import Tokens.TokenCategory;
 
+/**
+ * Class to evaluate each expression.
+ * @author chiragpa
+ *
+ */
 public class Evaluator {
 	
 	private BinaryTree expression;

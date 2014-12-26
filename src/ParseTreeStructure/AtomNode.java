@@ -1,7 +1,11 @@
 package ParseTreeStructure;
 
 import Tokens.Token;
-
+/**
+ * Class for Atom Node in S-Expression
+ * @author chiragpa
+ *
+ */
 public class AtomNode extends BinaryTree{
 	
 	private Token token;

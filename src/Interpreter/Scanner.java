@@ -95,6 +95,7 @@ public class Scanner {
 	
 
 	/**
+	 * checks if the atom is an EOF character
 	 * @param StringBuilder atom
 	 * @return boolean
 	 */
@@ -122,6 +123,7 @@ public class Scanner {
 	}*/
 
 	/**
+	 * reads the input from a specified file or Std in.
 	 * @param String file
 	 * @return StringBuilder
 	 */
@@ -157,6 +159,7 @@ public class Scanner {
 	}
 
 	/**
+	 * Checks whether the literal atom is valid or not - only alphanumeric values allowed
 	 * @param StringBuilder atom
 	 * @return boolean
 	 */

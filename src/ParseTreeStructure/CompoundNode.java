@@ -1,5 +1,10 @@
 package ParseTreeStructure;
 
+/**
+ * Class for Compound Node in S-Expression
+ * @author chiragpa
+ *
+ */
 public class CompoundNode extends BinaryTree {
 	
 	private BinaryTree leftSubTree;

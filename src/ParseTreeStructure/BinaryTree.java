@@ -1,4 +1,9 @@
 package ParseTreeStructure;
+/**
+ * Abstract class representing a node in S-Expression.
+ * @author chiragpa
+ *
+ */
 
 public abstract class BinaryTree {
 

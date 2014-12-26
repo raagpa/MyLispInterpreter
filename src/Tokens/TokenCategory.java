@@ -1,5 +1,10 @@
 package Tokens;
 
+/**
+ * Enum for Tokens
+ * @author chiragpa
+ *
+ */
 public enum TokenCategory {
 	OPEN_PARENTHESIS,
 	CLOSE_PARENTHESIS,
